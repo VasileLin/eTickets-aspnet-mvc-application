@@ -12,16 +12,17 @@ namespace eTickets.Data.Services
             _dbContext = dbContext;
         }
 
-        public Task Add(Actor actor)
+        public async Task AddAsync(Actor actor)
         {
             _dbContext.Actors.Add(actor);
-            _dbContext.SaveChanges();
-            return Task.CompletedTask;
+            await _dbContext.SaveChangesAsync();
         }
 
-        public Task Delete(int id)
+        public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var result = await _dbContext.Actors.FirstOrDefaultAsync(n => n.Id == id);
+            _dbContext.Actors.Remove(result);
+            await _dbContext.SaveChangesAsync();
         }
 
         public async Task<List<Actor>> GetAll()
@@ -29,14 +30,23 @@ namespace eTickets.Data.Services
             return await _dbContext.Actors.ToListAsync();
         }
 
-        public Task<Actor> GetById(int id)
+        public async Task<Actor> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var result = await _dbContext.Actors.SingleOrDefaultAsync(x => x.Id == id);
+            return result;
         }
 
-        public Task<Actor> Update(int id, Actor actor)
+        public async Task UpdateAsync(int id, Actor actor)
         {
-            throw new NotImplementedException();
+            var actorToUpdate = _dbContext.Actors.FirstOrDefault(q => q.Id == actor.Id);
+
+            if (actorToUpdate != null)
+            {
+                actorToUpdate.ProfilePictureURL = actor.ProfilePictureURL;
+                actorToUpdate.FullName = actor.FullName;
+                actorToUpdate.Bio = actor.Bio;
+                await _dbContext.SaveChangesAsync();
+            }
         }
     }
 }
