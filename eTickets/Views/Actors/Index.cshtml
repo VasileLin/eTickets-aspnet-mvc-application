@@ -12,7 +12,7 @@
                 <tr>
                     <th>@Html.DisplayNameFor(model => model.ProfilePictureURL)</th>
                     <th>@Html.DisplayNameFor(model => model.FullName)</th>
-                    <th>@Html.DisplayNameFor(model => model.Bio)</th>
+                    <th class="w-50">@Html.DisplayNameFor(model => model.Bio)</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -42,6 +42,6 @@
     </div>
 </div>
 
-<div style="position:fixed; right:25px;bottom:25px;" class="text-white">
+<div style="position:fixed; right: 25px; bottom: 25px; min-height: 40px; padding-bottom: 40px;" class="text-white">
     <a asp-controller="Actors" asp-action="Create" class="btn btn-success"><i class="bi bi-plus-circle"></i> Add New</a>
 </div>
