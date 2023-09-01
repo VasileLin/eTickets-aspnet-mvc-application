@@ -1,5 +1,7 @@
 using eTickets.Data;
+using eTickets.Data.Base;
 using eTickets.Data.Services;
+using eTickets.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace eTickets
@@ -14,6 +16,7 @@ namespace eTickets
             builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
 
             builder.Services.AddScoped<IActorsService, ActorsService>();
+            builder.Services.AddScoped<IEntityBaseRepository<Actor>, EntityBaseRepository<Actor>>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
